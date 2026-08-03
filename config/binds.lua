@@ -72,14 +72,19 @@ end
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
+--- Alternar flotante + fullscreen de la ventana enfocada
+hl.bind(mainMod .. " + T", function()
+    hl.dispatch(hl.dsp.window.float({ action = "toggle" }))      -- Alternar flotante
+    hl.dispatch(hl.dsp.window.fullscreen({ action = "toggle" })) -- Alternar fullscreen
+end) -- Alternar flotante y fullscreen de la ventana enfocada
+
 -- ══ APPS ══
 
 -- Terminal
 hl.bind(mainMod .. " + Return",     hl.dsp.exec_cmd(launchPrefix .. TERMINAL)) -- Requiere: uwsm, kitty
 -- Archivos (dolphin)
 hl.bind(mainMod .. " + E",          hl.dsp.exec_cmd(launchPrefix .. FILE_MANAGER)) -- Requiere: uwsm, dolphin
--- Editor de texto
-hl.bind(mainMod .. " + T",          hl.dsp.exec_cmd(launchPrefix .. EDITOR)) -- Requiere: uwsm, gnome-text-editor
+
 -- Calculadora
 hl.bind(mainMod .. " + C",          hl.dsp.exec_cmd(launchPrefix .. CALCULATOR)) -- Requiere: uwsm, gnome-calculator
 hl.bind("XF86Calculator",           hl.dsp.exec_cmd(launchPrefix .. CALCULATOR)) -- Requiere: uwsm, gnome-calculator
