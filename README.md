@@ -32,7 +32,7 @@ La configuración base de los archivos `.lua` parte de la plantilla de **CachyOS
 
 Es **lista para usar**: descarga los archivos (botón **Code → Download ZIP** o `git clone https://github.com/elteren/guia-hyprland-es.git`) y **cópialos en tu configuración de Hyprland** (`~/.config/hypr/`). La [página 03 de la wiki](https://github.com/elteren/guia-hyprland-es/wiki/03-donde-esta-la-config) te explica **en qué parte va cada archivo**.
 
-Después instala los programas que pide cada archivo (bloque `══ REQUIERE ══`) y arranca.
+Después instala los programas que pide cada archivo (bloque `══ REQUIERE ══`), **copia los scripts** de `scripts/` (ver [Scripts auxiliares](#scripts-auxiliares)) y arranca.
 
 > 📌 Los `.lua` de este repo se actualizan **lo antes posible** cuando una actualización de Hyprland sea importante.
 
@@ -59,26 +59,41 @@ La config está dividida en módulos (un archivo por tema). `hyprland.lua` los c
 
 Cada archivo trae en su cabecera un bloque **`══ REQUIERE ══`** con los programas exactos que hace falta instalar para usarlo.
 
+## Scripts auxiliares
+
+Los binds que lo necesitan usan dos scripts que vienen incluidos en `scripts/` de este repo. **Cópialos a `~/.local/bin/`** y dales permiso de ejecución:
+
+```bash
+mkdir -p ~/.local/bin && cp scripts/*.sh ~/.local/bin/ && chmod +x ~/.local/bin/*.sh
+```
+
+| Script | Hotkey | Qué hace |
+|---|---|---|
+| `gaming-toggle.sh` | `SUPER + G` | Activa/desactiva el auto-envío de juegos (`.exe` de Wine/Proton y Steam) al workspace `gaming` y su fullscreen inmersivo. Estado persistente en `~/.local/state/hypr/gaming-automove`, con aviso OSD y recarga automática. |
+| `tearing-toggle.sh` | `SUPER + SHIFT + T` | Activa/desactiva el tearing (baja latencia en juegos competitivos). |
+
 ## Nota: Wine/Proton y el workspace gaming
 
-En `config/windowrules.lua`, la lista `gamingApps` incluye `.*\.exe` (línea 32). Por eso **cualquier programa ejecutado con Wine/Proton (los `.exe`) se abre automáticamente en el workspace `gaming`** (regla de la línea 41) **forzado a pantalla completa** (regla "inmersiva", líneas 47–58).
+Por defecto, la lista `gamingApps` de `config/windowrules.lua` incluye `.*\.exe`. Por eso **cualquier programa ejecutado con Wine/Proton (los `.exe`) se abre automáticamente en el workspace `gaming`** forzado a pantalla completa (regla "inmersiva"). Lo mismo ocurre con juegos de `steam_app.*` y `gamescope`.
 
 Esto puede **causar ciertos problemas**: apps de Windows que no son juegos abren a fullscreen en el workspace gaming, a veces mal posicionadas o con el foco raro, o conflictos con la interfaz de Proton/Wine.
 
-**Se puede desactivar** de estas formas:
+**La forma cómoda de desactivarlo es el hotkey `SUPER + G`** (script `scripts/gaming-toggle.sh`): apaga/enciende al instante el envío a gaming y su fullscreen, con aviso OSD. La decisión se guarda en `~/.local/state/hypr/gaming-automove` y persiste entre sesiones. Con la opción **OFF**, los `.exe` y juegos se abren en el workspace actual y **sin** fullscreen forzado (afecta a las ventanas nuevas).
 
-1. Quitar `.*\.exe` de la regex (línea 32):
+También se puede **desactivar a mano** editando `config/windowrules.lua`:
+
+1. Quitar `.*\.exe` de la `gamingApps` si solo quieres que los `.exe` no se redirijan:
    ```lua
    local gamingApps = "^(steam_app.*|gamescope)$"
    ```
-2. Comentar la regla de fullscreen "inmersivo" (líneas 47–58) si quieres que sigan yendo al workspace `gaming` pero **sin** forzar fullscreen.
-3. Comentar también la regla de la línea 41 si no quieres que vayan al workspace `gaming`.
+2. Comentar la regla de fullscreen "inmersivo" si quieres que sigan yendo al workspace `gaming` pero **sin** forzar fullscreen.
+3. Comentar también la regla de envío al workspace `gaming` si no quieres que vayan ahí.
 
 ## Requisitos
 
 - **Official**: kitty dolphin firefox gnome-text-editor gnome-calculator
 - **AUR**: (ninguno)
-- **Custom**: script propio `~/.local/bin/tearing-toggle.sh`
+- **Custom**: scripts en `scripts/` del repo → copiar a `~/.local/bin/` (`gaming-toggle.sh`, `tearing-toggle.sh`, ver [Scripts auxiliares](#scripts-auxiliares))
 - **Extras**: noctalia, uwsm, hyprpicker, grim, wl-clipboard, cliphist
 
 ## Atajos de teclado (binds.lua)
@@ -142,6 +157,7 @@ Convención: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `SUPER + P` | Seleccionar color (hyprpicker) |
 | `Print` | Captura de región (Noctalia) |
 | `SUPER + Print` | Captura de pantalla completa (guardar + copiar) |
+| `SUPER + G` | Activar/desactivar auto-envío de juegos al workspace gaming (script) |
 | `SUPER + SHIFT + T` | Alternar tearing (script) |
 | `SUPER + SHIFT + W` | Panel de fondos de pantalla |
 | `SUPER + V` | Portapapeles |

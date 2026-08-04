@@ -33,41 +33,55 @@ local gamingApps = "^(steam_app.*|gamescope|.*\\.exe)$" -- Requiere: steam, game
 -- Workspace dedicado a juegos
 local gamingWorkspace = "name:gaming"
 
--- Contenido "game" va al workspace gaming
-hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
--- Etiqueta xdg "game" va al workspace gaming en pantalla completa
-hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspace, fullscreen_state = "2", content = "game" })
--- Cualquier app de la lista gamingApps va al workspace gaming
-hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
+-- Auto-envio de juegos al workspace gaming: se activa/desactiva con el hotkey
+-- SUPER+G (script ~/.local/bin/gaming-toggle.sh). Estado: ~/.local/state/hypr/gaming-automove
+local gamingAutomoveFile = os.getenv("HOME") .. "/.local/state/hypr/gaming-automove"
+local gamingAutomoveOn   = true
+local stateF = io.open(gamingAutomoveFile, "r")
+if stateF then
+    gamingAutomoveOn = (stateF:read("*l") or "1") == "1"
+    stateF:close()
+end
+
+if gamingAutomoveOn then
+    -- Contenido "game" va al workspace gaming
+    hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
+    -- Etiqueta xdg "game" va al workspace gaming en pantalla completa
+    hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspace, fullscreen_state = "2", content = "game" })
+    -- Cualquier app de la lista gamingApps va al workspace gaming
+    hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
+end
 -- Steam: lista de amigos flotante
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Friends List)$" }, float = true }) -- Requiere: steam
--- Steam: ventana de "Lanzando..." flotante y centrada
-hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true, workspace = gamingWorkspace }) -- Requiere: steam
--- Juegos (menos los que se abren desde /home): inmersivo fullscreen
-hl.window_rule({
-    match = {
-        class         = gamingApps,
-        title         = "^(.+)$",
-        initial_title = "negative:^(.*/home/.*)$",
-    },
-    content          = "game",
-    decorate         = false,
-    fullscreen_state = "2",
-    size             = { "monitor_w", "monitor_h" },
-    immediate        = true,
-})
--- Steam app sin titulo inicial: centrada, flotante y sin fullscreen
-hl.window_rule({
-    match = {
-        class         = "^(steam_app.*)$",
-        initial_title = "^$",
-    },
-    center           = true,
-    float            = true,
-    fullscreen       = false,
-    fullscreen_state = "0",
-    workspace        = gamingWorkspace,
-}) -- Requiere: steam
+if gamingAutomoveOn then
+    -- Steam: ventana de "Lanzando..." flotante y centrada
+    hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true, workspace = gamingWorkspace }) -- Requiere: steam
+    -- Juegos (menos los que se abren desde /home): inmersivo fullscreen
+    hl.window_rule({
+        match = {
+            class         = gamingApps,
+            title         = "^(.+)$",
+            initial_title = "negative:^(.*/home/.*)$",
+        },
+        content          = "game",
+        decorate         = false,
+        fullscreen_state = "2",
+        size             = { "monitor_w", "monitor_h" },
+        immediate        = true,
+    })
+    -- Steam app sin titulo inicial: centrada, flotante y sin fullscreen
+    hl.window_rule({
+        match = {
+            class         = "^(steam_app.*)$",
+            initial_title = "^$",
+        },
+        center           = true,
+        float            = true,
+        fullscreen       = false,
+        fullscreen_state = "0",
+        workspace        = gamingWorkspace,
+    }) -- Requiere: steam
+end
 
 -- ══ APPS ══
 
