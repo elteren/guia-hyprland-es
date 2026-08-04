@@ -1,24 +1,34 @@
-# Configuracion Hyprland v0.56.1
+# Configuración de Hyprland v0.56.1
 
-Configuracion de Hyprland para CachyOS usando UWSM y Lua.
+Una configuración de Hyprland para CachyOS, hecha con UWSM y Lua.
+
+## ¿Para qué es este repo?
+
+Este repositorio contiene dos cosas a la vez:
+
+1. **Los archivos `.lua` de configuración**, listos para usar (gaming y streaming).
+2. La [wiki de este proyecto](https://github.com/elteren/guia-hyprland-es/wiki), una **guía en español** para que entiendas esos archivos paso a paso. Está pensada para novatos: explica la sintaxis de Hyprland v0.56+ desde cero.
+
+La wiki siempre indica la versión de Hyprland a la que pertenece.
 
 ## Aviso
 
-> ⚠️ Esta configuración se desarrolló y probó en **CachyOS**. Los archivos `.lua` de este repositorio pueden no funcionar igual en otras distribuciones, y **no nos hacemos responsables** de su uso fuera de CachyOS. Aun así, la **wiki** sirve para **aprender** Hyprland en cualquier distribución.
+> ⚠️ Esta configuración se desarrolló y probó en **CachyOS**. Los archivos `.lua` de este repositorio pueden no funcionar igual en otras distribuciones, y **no nos hacemos responsables** de su uso fuera de CachyOS. Aun así, la **wiki** te sirve para **aprender** Hyprland en cualquier distribución.
 
 ## Créditos
 
-La configuración base de los archivos `.lua` de este repositorio parte de la plantilla de **CachyOS** y de la documentación de **Hyprland**; algunas partes se mantienen tal cual.
+La configuración base de los archivos `.lua` parte de la plantilla de **CachyOS** y de la documentación de **Hyprland**; algunas partes se mantienen tal cual.
 
 - [Hyprland](https://hyprland.org) — compositor Wayland (documentación: [wiki.hypr.land](https://wiki.hypr.land))
 - [CachyOS](https://cachyos.org) — distribución Arch optimizada
 
-## ¿Para qué es esta wiki?
+## Cómo usar esta configuración
 
-La [wiki de este proyecto](https://github.com/elteren/guia-hyprland-es/wiki) es una **guía en español** para entender los **archivos `.lua`** de esta configuración. Está pensada para novatos y explica la sintaxis de Hyprland v0.56+ paso a paso (la wiki siempre indica la versión de Hyprland a la que pertenece).
+Es **lista para usar**: descarga los archivos (botón **Code → Download ZIP** o `git clone https://github.com/elteren/guia-hyprland-es.git`) y **cópialos en tu configuración de Hyprland** (`~/.config/hypr/`). La [página 03 de la wiki](https://github.com/elteren/guia-hyprland-es/wiki/03-donde-esta-la-config) te explica **en qué parte va cada archivo**.
 
-- Los `.lua` de este repo se actualizan **lo antes posible** cuando una actualización de Hyprland sea importante.
-- Esta config está **optimizada para gaming y streaming** y es **lista para usar**: **descarga los archivos** (botón **Code → Download ZIP** o `git clone https://github.com/elteren/guia-hyprland-es.git`) y **cópialos en tu configuración de Hyprland** (`~/.config/hypr/`). La [página 03 de la wiki](https://github.com/elteren/guia-hyprland-es/wiki/03-donde-esta-la-config) explica **en qué parte va cada archivo**. Después instala los programas que pide cada archivo (bloque `══ REQUIERE ══`) y arranca.
+Después instala los programas que pide cada archivo (bloque `══ REQUIERE ══`) y arranca.
+
+> 📌 Los `.lua` de este repo se actualizan **lo antes posible** cuando una actualización de Hyprland sea importante.
 
 ## Archivos de configuración (listos para usar)
 
@@ -67,11 +77,11 @@ Esto puede **causar ciertos problemas**: apps de Windows que no son juegos abren
 
 ## Atajos de teclado (binds.lua)
 
-Convencion: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
+Convención: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 
 ### VENTANAS
 
-| Atajo | Accion |
+| Atajo | Acción |
 |---|---|
 | `SUPER + Escape` | Cerrar ventana (forzado) |
 | `SUPER + Q` | Cerrar ventana activa |
@@ -85,7 +95,7 @@ Convencion: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `SUPER + Flechas` | Enfocar ventana |
 | `ALT + Tab` | Siguiente ventana (ciclo) |
 | `SUPER + Tab` | Alternador de ventanas (Noctalia) |
-| `SUPER + SHIFT + Flechas` | Mover ventana en direccion |
+| `SUPER + SHIFT + Flechas` | Mover ventana en dirección |
 | `SUPER + SHIFT + 1..5` | Mover ventana a un workspace |
 | `SUPER + SHIFT + mouse_up/down` | Mover ventana a otro monitor |
 | `SUPER + CONTROL + SHIFT + Flechas / mouse` | Mover ventana al workspace adyacente |
@@ -94,7 +104,7 @@ Convencion: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 
 ### APPS
 
-| Atajo | Accion |
+| Atajo | Acción |
 |---|---|
 | `SUPER + Return` | Terminal (kitty) |
 | `SUPER + E` | Gestor de archivos (dolphin) |
@@ -105,26 +115,26 @@ Convencion: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `SUPER + X` | Centro de control |
 | `SUPER + Space` | Lanzador de apps |
 | `SUPER + period` | Lanzador de emojis |
-| `SUPER + L` | Bloquear sesion |
-| `SUPER + ALT + C` | Panel de sesion |
+| `SUPER + L` | Bloquear sesión |
+| `SUPER + ALT + C` | Panel de sesión |
 
 ### HARDWARE (audio, media, brillo)
 
-| Atajo | Accion |
+| Atajo | Acción |
 |---|---|
 | `XF86AudioRaiseVolume` / `XF86AudioLowerVolume` | Volumen subir/bajar |
 | `XF86AudioMute` | Silenciar volumen |
-| `XF86AudioMicMute` | Silenciar microfono |
+| `XF86AudioMicMute` | Silenciar micrófono |
 | `XF86AudioPlay` / `XF86AudioPause` | Reproducir/pausar media |
 | `XF86AudioNext` / `XF86AudioPrev` | Media siguiente/anterior |
 | `XF86MonBrightnessUp` / `XF86MonBrightnessDown` | Brillo subir/bajar |
 
 ### UTILIDADES
 
-| Atajo | Accion |
+| Atajo | Acción |
 |---|---|
 | `SUPER + P` | Seleccionar color (hyprpicker) |
-| `Print` | Captura de region (Noctalia) |
+| `Print` | Captura de región (Noctalia) |
 | `SUPER + Print` | Captura de pantalla completa (guardar + copiar) |
 | `SUPER + SHIFT + T` | Alternar tearing (script) |
 | `SUPER + SHIFT + W` | Panel de fondos de pantalla |
@@ -133,18 +143,18 @@ Convencion: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 
 ### WORKSPACES Y MONITORES
 
-| Atajo | Accion |
+| Atajo | Acción |
 |---|---|
 | `SUPER + 1..5` | Ir al workspace N |
 | `SUPER + CONTROL + 0..9` | Ir al workspace relativo |
-| `SUPER + CONTROL + Flechas` | Workspace adyacente / siguiente vacio |
+| `SUPER + CONTROL + Flechas` | Workspace adyacente / siguiente vacío |
 | `SUPER + mouse_up/down` | Cambiar workspace con la rueda |
 | `SUPER + SHIFT + S` | Enviar ventana al scratchpad |
 | `SUPER + S` | Alternar scratchpad |
 
 ## Variables (variables.lua)
 
-| Variable | Valor | Descripcion |
+| Variable | Valor | Descripción |
 |---|---|---|
 | `TERMINAL` | `kitty` | Terminal por defecto |
 | `FILE_MANAGER` | `dolphin` | Gestor de archivos |
@@ -154,4 +164,4 @@ Convencion: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `MONITOR1` | `HDMI-A-1` | Monitor principal |
 | `MONITOR2` / `MONITOR3` | `` | Monitores secundarios |
 | `PRIMARY_MONITOR` | `MONITOR1` | Monitor principal (reglas de ventanas) |
-| `NUM_WPM` | `5` | Workspaces por monitor (maximo 10) |
+| `NUM_WPM` | `5` | Workspaces por monitor (máximo 10) |
