@@ -2,6 +2,10 @@
 
 Configuracion de Hyprland para CachyOS usando UWSM y Lua.
 
+## Aviso
+
+> ⚠️ Esta configuración se desarrolló y probó en **CachyOS**. Los archivos `.lua` de este repositorio pueden no funcionar igual en otras distribuciones, y **no nos hacemos responsables** de su uso fuera de CachyOS. Aun así, la **wiki** sirve para **aprender** Hyprland en cualquier distribución.
+
 ## ¿Para qué es esta wiki?
 
 La [wiki de este proyecto](https://github.com/elteren/guia-hyprland-es/wiki) es una **guía en español** para entender los **archivos `.lua`** de esta configuración. Está pensada para novatos y explica la sintaxis de Hyprland v0.56+ paso a paso (la wiki siempre indica la versión de Hyprland a la que pertenece).
