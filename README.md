@@ -6,6 +6,13 @@ Configuracion de Hyprland para CachyOS usando UWSM y Lua.
 
 > ⚠️ Esta configuración se desarrolló y probó en **CachyOS**. Los archivos `.lua` de este repositorio pueden no funcionar igual en otras distribuciones, y **no nos hacemos responsables** de su uso fuera de CachyOS. Aun así, la **wiki** sirve para **aprender** Hyprland en cualquier distribución.
 
+## Créditos
+
+La configuración base de los archivos `.lua` de este repositorio parte de la plantilla de **CachyOS** y de la documentación de **Hyprland**; algunas partes se mantienen tal cual.
+
+- [Hyprland](https://hyprland.org) — compositor Wayland (documentación: [wiki.hypr.land](https://wiki.hypr.land))
+- [CachyOS](https://cachyos.org) — distribución Arch optimizada
+
 ## ¿Para qué es esta wiki?
 
 La [wiki de este proyecto](https://github.com/elteren/guia-hyprland-es/wiki) es una **guía en español** para entender los **archivos `.lua`** de esta configuración. Está pensada para novatos y explica la sintaxis de Hyprland v0.56+ paso a paso (la wiki siempre indica la versión de Hyprland a la que pertenece).
@@ -35,6 +42,21 @@ La config está dividida en módulos (un archivo por tema). `hyprland.lua` los c
 | `config/gamingbar.lua` | Oculta la barra de Noctalia en el workspace gaming |
 
 Cada archivo trae en su cabecera un bloque **`══ REQUIERE ══`** con los programas exactos que hace falta instalar para usarlo.
+
+## Nota: Wine/Proton y el workspace gaming
+
+En `config/windowrules.lua`, la lista `gamingApps` incluye `.*\.exe` (línea 32). Por eso **cualquier programa ejecutado con Wine/Proton (los `.exe`) se abre automáticamente en el workspace `gaming`** (regla de la línea 41) **forzado a pantalla completa** (regla "inmersiva", líneas 47–58).
+
+Esto puede **causar ciertos problemas**: apps de Windows que no son juegos abren a fullscreen en el workspace gaming, a veces mal posicionadas o con el foco raro, o conflictos con la interfaz de Proton/Wine.
+
+**Se puede desactivar** de estas formas:
+
+1. Quitar `.*\.exe` de la regex (línea 32):
+   ```lua
+   local gamingApps = "^(steam_app.*|gamescope)$"
+   ```
+2. Comentar la regla de fullscreen "inmersivo" (líneas 47–58) si quieres que sigan yendo al workspace `gaming` pero **sin** forzar fullscreen.
+3. Comentar también la regla de la línea 41 si no quieres que vayan al workspace `gaming`.
 
 ## Requisitos
 
