@@ -22,6 +22,12 @@ La configuración base de los archivos `.lua` parte de la plantilla de **CachyOS
 - [Hyprland](https://hyprland.org) — compositor Wayland (documentación: [wiki.hypr.land](https://wiki.hypr.land))
 - [CachyOS](https://cachyos.org) — distribución Arch optimizada
 
+## Mantenimiento
+
+- **Autor único.** Esta guía y la configuración del repositorio las mantiene **una sola persona** en su tiempo libre. Se actualizan cuando una versión de Hyprland lo requiere o cuando se detectan errores.
+- **Hecho con IA y verificado.** La wiki se redactó con ayuda de **inteligencia artificial**, siempre a partir de la documentación oficial. Actualmente se está realizando una **verificación manual** para corregir los fallos: la mayoría de las páginas ya están correctas y el resto se está puliendo.
+- **¿Quieres contribuir?** Cualquier persona es libre de **solicitar mejoras o actualizaciones** abriendo una *issue* o una *pull request* en el repositorio.
+
 ## Cómo usar esta configuración
 
 Es **lista para usar**: descarga los archivos (botón **Code → Download ZIP** o `git clone https://github.com/elteren/guia-hyprland-es.git`) y **cópialos en tu configuración de Hyprland** (`~/.config/hypr/`). La [página 03 de la wiki](https://github.com/elteren/guia-hyprland-es/wiki/03-donde-esta-la-config) te explica **en qué parte va cada archivo**.
