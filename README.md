@@ -2,6 +2,36 @@
 
 Configuracion de Hyprland para CachyOS usando UWSM y Lua.
 
+## ¿Para qué es esta wiki?
+
+La [wiki de este proyecto](https://github.com/elteren/hypr-config/wiki) es una **guía en español** para entender los **archivos `.lua`** de esta configuración. Está pensada para novatos y explica la sintaxis de Hyprland v0.56+ paso a paso (la wiki siempre indica la versión de Hyprland a la que pertenece).
+
+- Los `.lua` de este repo se actualizan **lo antes posible** cuando una actualización de Hyprland sea importante.
+- Esta config está **optimizada para gaming y streaming** y es **lista para usar**: clona el repo, instala los programas de cada archivo (bloque `══ REQUIERE ══`) y arranca.
+
+## Archivos de configuración (listos para usar)
+
+La config está dividida en módulos (un archivo por tema). `hyprland.lua` los carga en orden. **Léelos** para ver qué secciones te sirven y qué programas necesitas instalar.
+
+| Archivo | Para qué es |
+|---|---|
+| `hyprland.lua` | Entrada principal: carga los módulos en orden de dependencias |
+| `config/variables.lua` | Apps por defecto (`TERMINAL`, `BROWSER`…), monitores, workspaces |
+| `config/colors.lua` | Paleta de colores Cachy |
+| `config/environment.lua` | Variables de entorno (UWSM) |
+| `config/inputs.lua` | Ratón, teclado y gestos |
+| `config/animations.lua` | Curvas y animaciones |
+| `config/decorations.lua` | Gaps, bordes, grupos, opacidad |
+| `config/misc.lua` | Opciones misceláneas (layout scrolling) |
+| `config/monitors.lua` | Reglas de monitores |
+| `config/autostart.lua` | Programas al iniciar sesión |
+| `config/binds.lua` | Atajos de teclado y mouse |
+| `config/windowrules.lua` | Reglas de ventanas (gaming y streaming) |
+| `config/workspaces.lua` | Workspaces persistentes: Main, Web, Hub, gaming, Live |
+| `config/gamingbar.lua` | Oculta la barra de Noctalia en el workspace gaming |
+
+Cada archivo trae en su cabecera un bloque **`══ REQUIERE ══`** con los programas exactos que hace falta instalar para usarlo.
+
 ## Requisitos
 
 - **Official**: kitty dolphin firefox gnome-text-editor gnome-calculator
