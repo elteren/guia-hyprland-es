@@ -4,7 +4,7 @@ Configuracion de Hyprland para CachyOS usando UWSM y Lua.
 
 ## ¿Para qué es esta wiki?
 
-La [wiki de este proyecto](https://github.com/elteren/hypr-config/wiki) es una **guía en español** para entender los **archivos `.lua`** de esta configuración. Está pensada para novatos y explica la sintaxis de Hyprland v0.56+ paso a paso (la wiki siempre indica la versión de Hyprland a la que pertenece).
+La [wiki de este proyecto](https://github.com/elteren/guia-hyprland-es/wiki) es una **guía en español** para entender los **archivos `.lua`** de esta configuración. Está pensada para novatos y explica la sintaxis de Hyprland v0.56+ paso a paso (la wiki siempre indica la versión de Hyprland a la que pertenece).
 
 - Los `.lua` de este repo se actualizan **lo antes posible** cuando una actualización de Hyprland sea importante.
 - Esta config está **optimizada para gaming y streaming** y es **lista para usar**: clona el repo, instala los programas de cada archivo (bloque `══ REQUIERE ══`) y arranca.
