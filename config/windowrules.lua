@@ -108,6 +108,13 @@ hl.window_rule({
     rounding         = 0,
     opacity          = "1.0 override",
 })
+-- Excepcion: Affinity (AppImage que empaqueta Wine) se abre TILEADA como app normal.
+-- Solo la ventana principal (con titulo); sus menus (titulo vacio) siguen flotando.
+hl.window_rule({
+    match       = { class = "^(affinity\\.exe)$", title = "^(.+)$" },
+    float       = false,
+    border_size = 2, -- restaura el borde normal (la regla Wine lo pone a 0)
+})
 -- Menus de contexto de Wine: no roban el foco
 hl.window_rule({
     name  = "fix-wine-menu-nofocus",
