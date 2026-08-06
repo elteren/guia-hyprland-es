@@ -125,19 +125,28 @@ hl.window_rule({
     },
     no_focus = true,
 })
--- Menus de contexto de Wine: posicionarlos cerca del cursor (dentro del monitor y bajo la barra)
+-- Excepcion: la ventana de bienvenida de Affinity (affinity.exe, titulo vacio) SI recibe foco.
+-- Ganando a fix-wine-menu-nofocus para que se pueda usar.
+hl.window_rule({
+    match    = { class = "^(affinity\\.exe)$", title = "^$", xwayland = true },
+    no_focus = false,
+})
+-- Menus de contexto de Wine: posicionarlos cerca del cursor (dentro del monitor y bajo la barra).
+-- Solo ventanas pequenas (tipo menu); las ventanas grandes (bienvenida de Affinity, splash) se
+-- quedan centradas por la regla general y no se corren junto al cursor.
 hl.on("window.open", function(w)
     local wc = w.class:lower()
     local isWine = wc ~= "" and (
         wc:match("^steam_proton$") or wc:match("^wine") or wc:match("explorer%.exe$") or wc:match("%.exe$")
     )
-    if isWine and w.xwayland and w.title == "" then
+    if isWine and w.xwayland and w.title == "" and w.size.x < 600 and w.size.y < 500 then
         local pos = hl.get_cursor_pos()
         local mon = hl.get_monitor_at_cursor()
         local margin = 12
         local topBarHeight = 40 -- altura de la barra de Noctalia
-        local x = math.min(pos.x + 10, mon.x + mon.width - w.size.x - margin)
+        local x = math.min(math.max(pos.x + 10, mon.x + margin), mon.x + mon.width - w.size.x - margin)
         local y = math.max(pos.y + 10, mon.y + topBarHeight + margin)
+        y = math.min(y, mon.y + mon.height - w.size.y - margin)
         hl.dispatch(hl.dsp.window.move({ x = x, y = y, window = "address:" .. w.address }))
     end
 end)
