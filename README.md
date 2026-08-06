@@ -74,7 +74,7 @@ mkdir -p ~/.local/bin && cp scripts/*.sh ~/.local/bin/ && chmod +x ~/.local/bin/
 ## Nota: Gaming, Wine/Proton y el anti-freeze
 
 - **Juegos** (Steam `steam_app.*`, `gamescope` y el runtime `steam_proton`) se abren **siempre** en el workspace `gaming` (auto-envío fijo, sin toggle).
-- Al arrancar, la ventana del juego va **borderless a tamaño de monitor** (`size = "monitor_w monitor_h"`) **sin** fullscreen forzado, para evitar el **freeze de Proton** en XWayland. Recién cuando el contenido se confirma como `"game"`, la regla final aplica **fullscreen real** + `tearing` (para que `SUPER + SHIFT + T` funcione en juegos).
+- Al arrancar, la ventana del juego va **borderless a tamaño de monitor** (`size = "monitor_w monitor_h"`) **sin** fullscreen forzado, para evitar el **freeze de Proton** en XWayland. Recién cuando el contenido se confirma como `"game"`, la regla final aplica **fullscreen real** + `immediate` (permite tearing en el juego; el toggle `SUPER + SHIFT + T` sigue siendo el que lo activa).
 - **Utilidades de Wine** (launchers, configuradores, prefijos: `wine`, `wine64`, `explorer.exe`, `*.exe`) **ya no van a gaming**: flotan como ventanas limpias (sin bordes, sin blur), sus menús de contexto no roban foco y aparecen **junto al cursor**. Sección `══ WINE / PROTON ══` de `config/windowrules.lua`.
 - Excepción: si algún juego lanzado por Steam expone su clase como `<juego>.exe`, flotará como utilidad; agrégala a `gamingApps` para tratarlo como juego.
 

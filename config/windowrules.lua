@@ -84,11 +84,12 @@ hl.window_rule({
     workspace        = gamingWorkspace,
 }) -- Requiere: steam
 -- Fullscreen real SOLO cuando content="game" ya esta confirmado (la ultima regla gana).
--- tearing=true para que el toggle SUPER+SHIFT+T (baja latencia) aplique a los juegos.
+-- immediate=true permite tearing en el juego (elegible), pero el toggle SUPER+SHIFT+T
+-- (general:allow_tearing, master toggle) sigue siendo el que lo activa de verdad.
 hl.window_rule({
     match      = { class = gamingApps, content = "game" },
     fullscreen = true,
-    tearing    = true,
+    immediate  = true,
 })
 
 -- ══ WINE / PROTON (utilidades, no-juego) ══
