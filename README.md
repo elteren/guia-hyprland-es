@@ -61,7 +61,7 @@ Cada archivo trae en su cabecera un bloque **`══ REQUIERE ══`** con los 
 
 ## Scripts auxiliares
 
-Los binds que lo necesitan usan dos scripts que vienen incluidos en `scripts/` de este repo. **Cópialos a `~/.local/bin/`** y dales permiso de ejecución:
+El bind que lo necesita usa un script que viene incluido en `scripts/` de este repo. **Cópialo a `~/.local/bin/`** y dale permiso de ejecución:
 
 ```bash
 mkdir -p ~/.local/bin && cp scripts/*.sh ~/.local/bin/ && chmod +x ~/.local/bin/*.sh
@@ -69,31 +69,20 @@ mkdir -p ~/.local/bin && cp scripts/*.sh ~/.local/bin/ && chmod +x ~/.local/bin/
 
 | Script | Hotkey | Qué hace |
 |---|---|---|
-| `gaming-toggle.sh` | `SUPER + G` | Activa/desactiva el auto-envío de juegos (`.exe` de Wine/Proton y Steam) al workspace `gaming` y su fullscreen inmersivo. Estado persistente en `~/.local/state/hypr/gaming-automove`, con aviso OSD y recarga automática. |
 | `tearing-toggle.sh` | `SUPER + SHIFT + T` | Activa/desactiva el tearing (baja latencia en juegos competitivos). |
 
-## Nota: Wine/Proton y el workspace gaming
+## Nota: Gaming, Wine/Proton y el anti-freeze
 
-Por defecto, la lista `gamingApps` de `config/windowrules.lua` incluye `.*\.exe`. Por eso **cualquier programa ejecutado con Wine/Proton (los `.exe`) se abre automáticamente en el workspace `gaming`** forzado a pantalla completa (regla "inmersiva"). Lo mismo ocurre con juegos de `steam_app.*` y `gamescope`.
-
-Esto puede **causar ciertos problemas**: apps de Windows que no son juegos abren a fullscreen en el workspace gaming, a veces mal posicionadas o con el foco raro, o conflictos con la interfaz de Proton/Wine.
-
-**La forma cómoda de desactivarlo es el hotkey `SUPER + G`** (script `scripts/gaming-toggle.sh`): apaga/enciende al instante el envío a gaming y su fullscreen, con aviso OSD. La decisión se guarda en `~/.local/state/hypr/gaming-automove` y persiste entre sesiones. Con la opción **OFF**, los `.exe` y juegos se abren en el workspace actual y **sin** fullscreen forzado (afecta a las ventanas nuevas).
-
-También se puede **desactivar a mano** editando `config/windowrules.lua`:
-
-1. Quitar `.*\.exe` de la `gamingApps` si solo quieres que los `.exe` no se redirijan:
-   ```lua
-   local gamingApps = "^(steam_app.*|gamescope)$"
-   ```
-2. Comentar la regla de fullscreen "inmersivo" si quieres que sigan yendo al workspace `gaming` pero **sin** forzar fullscreen.
-3. Comentar también la regla de envío al workspace `gaming` si no quieres que vayan ahí.
+- **Juegos** (Steam `steam_app.*`, `gamescope` y el runtime `steam_proton`) se abren **siempre** en el workspace `gaming` (auto-envío fijo, sin toggle).
+- Al arrancar, la ventana del juego va **borderless a tamaño de monitor** (`size = "monitor_w monitor_h"`) **sin** fullscreen forzado, para evitar el **freeze de Proton** en XWayland. Recién cuando el contenido se confirma como `"game"`, la regla final aplica **fullscreen real** + `tearing` (para que `SUPER + SHIFT + T` funcione en juegos).
+- **Utilidades de Wine** (launchers, configuradores, prefijos: `wine`, `wine64`, `explorer.exe`, `*.exe`) **ya no van a gaming**: flotan como ventanas limpias (sin bordes, sin blur), sus menús de contexto no roban foco y aparecen **junto al cursor**. Sección `══ WINE / PROTON ══` de `config/windowrules.lua`.
+- Excepción: si algún juego lanzado por Steam expone su clase como `<juego>.exe`, flotará como utilidad; agrégala a `gamingApps` para tratarlo como juego.
 
 ## Requisitos
 
 - **Official**: kitty dolphin firefox gnome-text-editor gnome-calculator
 - **AUR**: (ninguno)
-- **Custom**: scripts en `scripts/` del repo → copiar a `~/.local/bin/` (`gaming-toggle.sh`, `tearing-toggle.sh`, ver [Scripts auxiliares](#scripts-auxiliares))
+- **Custom**: script en `scripts/` del repo → copiar a `~/.local/bin/` (`tearing-toggle.sh`, ver [Scripts auxiliares](#scripts-auxiliares))
 - **Extras**: noctalia, uwsm, hyprpicker, grim, wl-clipboard, cliphist
 
 ## Atajos de teclado (binds.lua)
@@ -157,7 +146,6 @@ Convención: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `SUPER + P` | Seleccionar color (hyprpicker) |
 | `Print` | Captura de región (Noctalia) |
 | `SUPER + Print` | Captura de pantalla completa (guardar + copiar) |
-| `SUPER + G` | Activar/desactivar auto-envío de juegos al workspace gaming (script) |
 | `SUPER + SHIFT + T` | Alternar tearing (script) |
 | `SUPER + SHIFT + W` | Panel de fondos de pantalla |
 | `SUPER + V` | Portapapeles |

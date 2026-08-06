@@ -171,8 +171,3 @@ hl.bind(mainMod .. " + CONTROL + mouse_down", hl.dsp.focus({ workspace = "m+1" }
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special" }))
 -- Alternar scratchpad
 hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special())
-
--- ══ GAMING ══
-
--- Alternar auto-envio de juegos (.exe Wine/Proton y Steam) al workspace gaming y su fullscreen inmersivo
-hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("bash ~/.local/bin/gaming-toggle.sh")) -- Requiere: script ~/.local/bin/gaming-toggle.sh

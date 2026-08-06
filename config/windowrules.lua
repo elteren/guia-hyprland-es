@@ -14,6 +14,20 @@
 
 -- Posicionar al centro las ventanas ya flotantes y recordar su tamano
 hl.window_rule({ match = { float = true }, center = true, persistent_size = true })
+-- XWayland sin clase ni titulo (popups desnudos): no centrar (la excepcion gana al centro global)
+hl.window_rule({ match = { float = true, xwayland = true, class = "^$", title = "^$" }, center = false })
+-- Tooltips y menus de contexto XWayland (class == title): posicionarlos cerca del cursor
+hl.on("window.open", function(w)
+    if w.xwayland and w.class ~= "" and w.class == w.title then
+        local pos = hl.get_cursor_pos()
+        local mon = hl.get_monitor_at_cursor()
+        local margin = 12
+        local topBarHeight = 40 -- altura de la barra de Noctalia
+        local x = math.min(pos.x + 10, mon.x + mon.width - w.size.x - margin)
+        local y = math.max(pos.y + 10, mon.y + topBarHeight + margin)
+        hl.dispatch(hl.dsp.window.move({ x = x, y = y, window = "address:" .. w.address }))
+    end
+end)
 
 -- ══ PICTURE-IN-PICTURE ══
 
@@ -28,64 +42,117 @@ hl.window_rule({
 
 -- ══ GAMING ══
 
--- Apps de juego (steam, gamescope y ejecutables .exe de Wine)
-local gamingApps = "^(steam_app.*|gamescope|.*\\.exe)$" -- Requiere: steam, gamescope, wine (para .exe)
+-- Apps de juego (steam, gamescope y el runtime de Proton)
+local gamingApps = "^(steam_app.*|gamescope|steam_proton)$" -- Requiere: steam, gamescope
 -- Workspace dedicado a juegos
 local gamingWorkspace = "name:gaming"
 
--- Auto-envio de juegos al workspace gaming: se activa/desactiva con el hotkey
--- SUPER+G (script ~/.local/bin/gaming-toggle.sh). Estado: ~/.local/state/hypr/gaming-automove
-local gamingAutomoveFile = os.getenv("HOME") .. "/.local/state/hypr/gaming-automove"
-local gamingAutomoveOn   = true
-local stateF = io.open(gamingAutomoveFile, "r")
-if stateF then
-    gamingAutomoveOn = (stateF:read("*l") or "1") == "1"
-    stateF:close()
-end
-
-if gamingAutomoveOn then
-    -- Contenido "game" va al workspace gaming
-    hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
-    -- Etiqueta xdg "game" va al workspace gaming en pantalla completa
-    hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspace, fullscreen_state = "2", content = "game" })
-    -- Cualquier app de la lista gamingApps va al workspace gaming
-    hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
-end
+-- Auto-envio SIEMPRE activo de juegos al workspace gaming (estilo del amigo, sin toggle)
+-- Contenido "game" va al workspace gaming
+hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
+-- Etiqueta xdg "game" va al workspace gaming (sin fullscreen forzado al arrancar)
+hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspace, content = "game" })
+-- Cualquier app de la lista gamingApps va al workspace gaming
+hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
 -- Steam: lista de amigos flotante
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Friends List)$" }, float = true }) -- Requiere: steam
-if gamingAutomoveOn then
-    -- Steam: ventana de "Lanzando..." flotante y centrada
-    hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true, workspace = gamingWorkspace }) -- Requiere: steam
-    -- Juegos (menos los que se abren desde /home): inmersivo fullscreen
-    hl.window_rule({
-        match = {
-            class         = gamingApps,
-            title         = "^(.+)$",
-            initial_title = "negative:^(.*/home/.*)$",
-        },
-        content          = "game",
-        decorate         = false,
-        fullscreen_state = "2",
-        size             = { "monitor_w", "monitor_h" },
-        immediate        = true,
-    })
-    -- Steam app sin titulo inicial: centrada, flotante y sin fullscreen
-    hl.window_rule({
-        match = {
-            class         = "^(steam_app.*)$",
-            initial_title = "^$",
-        },
-        center           = true,
-        float            = true,
-        fullscreen       = false,
-        fullscreen_state = "0",
-        workspace        = gamingWorkspace,
-    }) -- Requiere: steam
-end
+-- Steam: ventana de "Lanzando..." flotante y centrada
+hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true, workspace = gamingWorkspace }) -- Requiere: steam
+-- Juegos (menos los que se abren desde /home): borderless a tamano de monitor
+-- sin fullscreen forzado, para evitar el freeze de Proton en XWayland
+hl.window_rule({
+    match = {
+        class         = gamingApps,
+        title         = "^(.+)$",
+        initial_title = "negative:^(.*/home/.*)$",
+    },
+    content          = "game",
+    decorate         = false,
+    size             = { "monitor_w", "monitor_h" },
+    immediate        = true,
+})
+-- Steam app sin titulo inicial: centrada, flotante y sin fullscreen
+hl.window_rule({
+    match = {
+        class         = "^(steam_app.*)$",
+        initial_title = "^$",
+    },
+    center           = true,
+    float            = true,
+    fullscreen       = false,
+    fullscreen_state = "0",
+    workspace        = gamingWorkspace,
+}) -- Requiere: steam
+-- Fullscreen real SOLO cuando content="game" ya esta confirmado (la ultima regla gana).
+-- tearing=true para que el toggle SUPER+SHIFT+T (baja latencia) aplique a los juegos.
+hl.window_rule({
+    match      = { class = gamingApps, content = "game" },
+    fullscreen = true,
+    tearing    = true,
+})
+
+-- ══ WINE / PROTON (utilidades, no-juego) ══
+
+-- Utilidades de Wine/Proton (launchers, configuradores, prefijos): flotantes y limpias
+local wineClasses = "^(steam_proton|wine|wine64|explorer\\.exe|.*\\.exe)$" -- Requiere: wine
+hl.window_rule({
+    match            = { class = wineClasses },
+    float            = true,
+    center           = true,
+    fullscreen       = false,
+    fullscreen_state = "0",
+    no_max_size      = true,
+    border_size      = 0,
+    no_blur          = true,
+    rounding         = 0,
+    opacity          = "1.0 override",
+})
+-- Menus de contexto de Wine: no roban el foco
+hl.window_rule({
+    name  = "fix-wine-menu-nofocus",
+    match = {
+        class    = wineClasses,
+        title    = "^$",
+        xwayland = true,
+    },
+    no_focus = true,
+})
+-- Menus de contexto de Wine: posicionarlos cerca del cursor (dentro del monitor y bajo la barra)
+hl.on("window.open", function(w)
+    local wc = w.class:lower()
+    local isWine = wc ~= "" and (
+        wc:match("^steam_proton$") or wc:match("^wine") or wc:match("explorer%.exe$") or wc:match("%.exe$")
+    )
+    if isWine and w.xwayland and w.title == "" then
+        local pos = hl.get_cursor_pos()
+        local mon = hl.get_monitor_at_cursor()
+        local margin = 12
+        local topBarHeight = 40 -- altura de la barra de Noctalia
+        local x = math.min(pos.x + 10, mon.x + mon.width - w.size.x - margin)
+        local y = math.max(pos.y + 10, mon.y + topBarHeight + margin)
+        hl.dispatch(hl.dsp.window.move({ x = x, y = y, window = "address:" .. w.address }))
+    end
+end)
 
 -- ══ APPS ══
 
--- hl.window_rule({ match = { class = "^(.*\\.exe)$", float = true }, center = true }) -- Desactivada: redundante con gamingApps (linea 16 incluye ".*\\.exe"; lineas 21/24-35 la mandan a gaming fullscreen, nunca flota). Rehabilitar solo para .exe de Wine fuera del gaming.
+-- Ventanas de trabajo a todo el ancho (layout scrolling): reemplaza al maximizar
+local fullWidthClasses = {
+    { class = "^(firefox)$" },                                                -- Requiere: firefox
+    { class = "^(app\\.zen_browser\\.zen)$" },                                -- Requiere: zen-browser (AUR)
+    { class = "^(vesktop)$", title = "negative:^vesktop$" },                  -- Requiere: vesktop-bin (AUR)
+}
+for _, m in ipairs(fullWidthClasses) do
+    hl.window_rule({ match = m, scrolling_width = 1.0 })
+end
+-- Vesktop: ventana de inicio ("vesktop") flotante, centrada y sin agruparse
+hl.window_rule({
+    match        = { class = "^(vesktop|discord)$", title = "^(vesktop)$" },
+    float        = true,
+    center       = true,
+    group        = "deny",
+    border_color = { colors = { CACHYLGREEN, CACHYLGREEN }, angle = 45 }, -- Requiere: vesktop-bin (AUR)
+})
 -- Lanzadores flotantes en el monitor principal
 hl.window_rule({ match = { class = "^(.*[Ll]auncher.*)$" }, float = true, monitor = PRIMARY_MONITOR })
 -- Discord en el monitor principal
@@ -100,6 +167,10 @@ hl.window_rule({ match = { class = "^(.*[Cc]alc.*)$" }, float = true, size = { "
 hl.window_rule({ match = { class = "^(org\\.kde\\.keditfiletype)$" }, float = true }) -- Requiere: kdeutils (keditfiletype)
 -- Ark (gestor de archivos KDE) a tamano fijo
 hl.window_rule({ match = { class = "^(org\\.kde\\.ark)$" }, size = { "max(monitor_w, monitor_h)*0.40", "min(monitor_w, monitor_h)*0.40" } }) -- Requiere: ark
+-- Ark: dialogo de conflicto de archivo ("El archivo ya existe") flotante y centrado
+hl.window_rule({ match = { class = "^(org\\.kde\\.ark)$", title = "^(El archivo ya existe|The file already exists)(.*)$" }, float = true, center = true }) -- Requiere: ark
+-- Ark: dialogo de carga de archivo ("Cargando archivador") flotante y centrado
+hl.window_rule({ match = { class = "^(org\\.kde\\.ark)$", title = "^(Cargando archivador|Loading archive)(.*)$" }, float = true, center = true }) -- Requiere: ark
 -- Satty (captura anotada) flotante a tamano minimo
 hl.window_rule({ match = { class = "^(.*satty.*)$", title = "^(Satty)$" }, min_size = { "max(monitor_w, monitor_h)*0.35", "min(monitor_w, monitor_h)*0.35" }, float = true }) -- Requiere: satty (AUR)
 -- Noctalia (ajustes) flotante al 70% del monitor
