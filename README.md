@@ -84,7 +84,7 @@ mkdir -p ~/.local/bin && cp scripts/*.sh ~/.local/bin/ && chmod +x ~/.local/bin/
 - **Official**: kitty dolphin firefox gnome-text-editor gnome-calculator
 - **AUR**: (ninguno)
 - **Custom**: script en `scripts/` del repo → copiar a `~/.local/bin/` (`tearing-toggle.sh`, ver [Scripts auxiliares](#scripts-auxiliares))
-- **Extras**: noctalia, uwsm, hyprpicker, grim, wl-clipboard, cliphist
+- **Extras**: noctalia, uwsm, hyprpicker, grim, wl-clipboard, wl-clip-persist, cliphist
 
 ## Atajos de teclado (binds.lua)
 
@@ -152,6 +152,8 @@ Convención: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `SUPER + V` | Portapapeles |
 | `SUPER + A` | Notificaciones |
 
+> 💡 El portapapeles es **persistente**: `wl-clip-persist` (en `config/autostart.lua`) conserva lo copiado aunque cierres la app que lo originó.
+
 ### WORKSPACES Y MONITORES
 
 | Atajo | Acción |
@@ -160,6 +162,7 @@ Convención: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `SUPER + CONTROL + 0..9` | Ir al workspace relativo |
 | `SUPER + CONTROL + Flechas` | Workspace adyacente / siguiente vacío |
 | `SUPER + mouse_up/down` | Cambiar workspace con la rueda |
+| `SUPER + CONTROL + mouse_up/down` | Cambiar workspace con la rueda (relativo) |
 | `SUPER + SHIFT + S` | Enviar ventana al scratchpad |
 | `SUPER + S` | Alternar scratchpad |
 
