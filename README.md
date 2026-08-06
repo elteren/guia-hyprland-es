@@ -1,4 +1,4 @@
-# Configuración de Hyprland v0.56.1
+# Configuración de Hyprland v0.56.2
 
 Una configuración de Hyprland para CachyOS, hecha con UWSM y Lua.
 
