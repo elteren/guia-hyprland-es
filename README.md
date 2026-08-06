@@ -30,11 +30,17 @@ La configuración base de los archivos `.lua` parte de la plantilla de **CachyOS
 
 ## Cómo usar esta configuración
 
-Es **lista para usar**: descarga los archivos (botón **Code → Download ZIP** o `git clone https://github.com/elteren/guia-hyprland-es.git`) y **cópialos en tu configuración de Hyprland** (`~/.config/hypr/`). La [página 03 de la wiki](https://github.com/elteren/guia-hyprland-es/wiki/03-donde-esta-la-config) te explica **en qué parte va cada archivo**.
+La config es **lista para usar** y tiene **versiones numeradas** (semver desde la `0`). Cada versión se publica como una **release** de GitHub con su código descargable (zip/tarball) y sus cambios documentados en `CHANGELOG.md`.
+
+- **Descarga la última versión estable**: [página de releases](https://github.com/elteren/guia-hyprland-es/releases) → expande la **Latest** y descarga el **Source code (zip)**.
+- O clona el repo: `git clone https://github.com/elteren/guia-hyprland-es.git` (tienes el estado actual en `main`, sin versiones).
+
+Luego **copia los archivos** a tu configuración de Hyprland (`~/.config/hypr/`). La [página 03 de la wiki](https://github.com/elteren/guia-hyprland-es/wiki/03-donde-esta-la-config) te explica **en qué parte va cada archivo**.
 
 Después instala los programas que pide cada archivo (bloque `══ REQUIERE ══`), **copia los scripts** de `scripts/` (ver [Scripts auxiliares](#scripts-auxiliares)) y arranca.
 
 > 📌 Los `.lua` de este repo se actualizan **lo antes posible** cuando una actualización de Hyprland sea importante.
+> 🏷️ Las versiones siguen [Versionado Semántico](https://semver.org/lang/es/): cada release (zip) y el `CHANGELOG.md` describen qué cambió.
 
 ## Archivos de configuración (listos para usar)
 
