@@ -1,4 +1,9 @@
 -- Curvas y animaciones por defecto, ver https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
+--
+-- ══ REQUIERE (instalar antes de usar este archivo) ══
+-- pacman (oficial): (ninguno) -- Solo curvas y animaciones del compositor
+
+-- ══ CURVAS ══
 
 -- Curvas bezier
 hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } }) -- Desaceleracion suave
@@ -12,7 +17,8 @@ hl.curve("overshoot",      { type = "bezier", points = { {0.5, 0.9}, {0.1, 1.1} 
 hl.curve("easy",           { type = "spring", mass = 1, stiffness = 500, dampening = 35 }) -- Resorte suave
 hl.curve("rubber",         { type = "spring", mass = 1, stiffness = 200,  dampening = 15 }) -- Resorte elastico
 
--- Animaciones
+-- ══ ANIMACIONES ══
+
 hl.animation({ leaf = "global",              enabled = true, speed = 4, bezier = "quick"                 }) -- Global
 hl.animation({ leaf = "windows",             enabled = true, speed = 4, spring = "easy",  style = "slide" }) -- Ventanas
 hl.animation({ leaf = "workspaces",          enabled = true, speed = 2, bezier = "quick", style = "slide" }) -- Workspaces

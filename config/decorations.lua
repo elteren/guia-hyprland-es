@@ -1,6 +1,12 @@
--- Configuracion visual (gaps, bordes, grupos, opacidad)
+-- Configuracion visual: gaps, bordes, grupos, opacidad y sombras.
+-- Los colores se definen en colors.lua (paleta Cachy), no aqui.
+--
+-- ══ REQUIERE (instalar antes de usar este archivo) ══
+-- pacman (oficial): (ninguno) -- Solo usa colores de colors.lua, sin paquetes propios
 
 hl.config({
+    -- ══ GENERAL (gaps y bordes) ══
+
     general = {
         gaps_in = 0,               -- Espacio entre ventanas
         gaps_out = 0,              -- Espacio en los bordes del monitor
@@ -15,6 +21,9 @@ hl.config({
             inactive_border = CACHYGRAY, -- Borde inactivo gris
         },
     },
+
+    -- ══ GRUPOS (bordes y barra de grupo) ══
+
     group = {
         col = {
             border_active = CACHYLBLUE,          -- Borde del grupo activo
@@ -31,6 +40,9 @@ hl.config({
             },
         },
     },
+
+    -- ══ DECORATION (opacidad, blur y sombras) ══
+
     decoration = {
         dim_special = 0.0,          -- Sin atenuar el scratchpad
         rounding = 0,               -- Sin esquinas redondeadas

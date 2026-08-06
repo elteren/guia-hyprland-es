@@ -1,6 +1,10 @@
--- Opciones miscelaneas del compositor
+-- Opciones miscelaneas del compositor: layout, scrolling, VRR y consumir ventanas.
+--
+-- ══ REQUIERE (instalar antes de usar este archivo) ══
+-- pacman (oficial): (ninguno) -- Opciones del compositor, sin paquetes propios
 
 hl.config({
+    -- Layout por defecto: scrolling (columnas con scroll horizontal)
     general = {
         layout = "scrolling", -- Layout scrolling (columnas con scroll horizontal)
     },
@@ -15,7 +19,9 @@ hl.config({
         middle_click_paste = false,        -- Desactivar pegar con el boton medio
         enable_swallow = true,             -- Consumir ventanas hijas de la terminal
         swallow_regex = "(kitty|ghostty|[Kk]onsole|Alacritty|gnome-terminal|xfce[0-9]?-terminal)", -- Terminales que consumen
-        vrr = 3,                           -- VRR (variable refresh rate): on, fullscreen o configurado
+        -- VRR (variable refresh rate). 3 = activo: fullscreen y normal. Nota: si el monitor no
+        -- reporta adaptive sync por esa conexion, el log mostrara "No Adaptive sync support" (aviso, no error).
+        vrr = 3,
     },
     xwayland = {
         force_zero_scaling = true,         -- Sin escalado para apps XWayland
