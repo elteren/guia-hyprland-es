@@ -5,6 +5,7 @@ Todas las versiones de la configuración se numeran con [Versionado Semántico](
 ## [v0.2.2] - 2026-08-10
 
 - Reglas de ventana para otros launchers de juegos: Lutris, Heroic y Bottles se abren tiled en el workspace `3 silent` (sin foco inicial ni notificaciones), igual que Steam.
+- Fix: clase real de Heroic (`heroic`, en minusculas) y APP_ID real de Bottles (`com.usebottles.bottles`) para que las reglas apliquen.
 
 ## [v0.2.1] - 2026-08-06
 

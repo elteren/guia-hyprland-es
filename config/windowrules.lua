@@ -295,18 +295,18 @@ hl.window_rule({
     tile             = true,
 }) -- Requiere: lutris
 
--- Heroic: principal en workspace 3 silencioso y tile
+-- Heroic: principal en workspace 3 silencioso y tile (clase real en minusculas)
 hl.window_rule({
-    match = { class = "^(Heroic)$", title = "^(Heroic)( Games Launcher)?$" },
+    match = { class = "^(heroic)$", title = "^(Heroic)( Games Launcher)?$" },
     workspace        = "3 silent",
     no_initial_focus = true,
     suppress_event   = "activate",
     tile             = true,
 }) -- Requiere: heroic-games-launcher-bin (AUR)
 
--- Bottles: principal en workspace 3 silencioso y tile
+-- Bottles: principal en workspace 3 silencioso y tile (APP_ID real com.usebottles.bottles)
 hl.window_rule({
-    match = { class = "^(bottles)$", title = "^(Bottles|Botellas)$" },
+    match = { class = "^(com\\.usebottles\\.bottles|bottles)$", title = "^(Bottles|Botellas)$" },
     workspace        = "3 silent",
     no_initial_focus = true,
     suppress_event   = "activate",
