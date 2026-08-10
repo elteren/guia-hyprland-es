@@ -2,6 +2,10 @@
 
 Todas las versiones de la configuración se numeran con [Versionado Semántico](https://semver.org/lang/es/) desde la `0`. Cada release publicada en GitHub incluye el código fuente descargable (zip/tarball).
 
+## [v0.2.1-1] - 2026-08-10
+
+- Reglas de ventana para otros launchers de juegos: Lutris, Heroic y Bottles se abren tiled en el workspace `3 silent` (sin foco inicial ni notificaciones), igual que Steam.
+
 ## [v0.2.1] - 2026-08-06
 
 - Validada en **Hyprland v0.56.2** (versión de solo fixes: sin cambios de API Lua, sin cambios de config).

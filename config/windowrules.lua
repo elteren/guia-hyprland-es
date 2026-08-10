@@ -3,9 +3,10 @@
 -- por eso este archivo NO se reordena; solo se agrupa visualmente.
 --
 -- ══ REQUIERE (instalar antes de usar este archivo) ══
--- pacman (oficial): steam gamescope wine discord ark dolphin mpv haruna gwenview vlc
+-- pacman (oficial): steam gamescope lutris wine discord ark dolphin mpv haruna gwenview vlc
 --                    pavucontrol blueman network-manager-applet winetricks protontricks
 --                    xdg-desktop-portal-gtk obs-studio easyeffects kvantum qt5ct qt6ct
+--                    heroic-games-launcher-bin (AUR) bottles (flatpak)
 --                    nwg-look firefox
 -- AUR: vesktop-bin zapzap satty zen-browser pipeweaver pipeweaver-app
 -- Custom (no es paquete): firebot, plex
@@ -282,6 +283,35 @@ hl.window_rule({
     float  = true,
     center = true,
 }) -- Requiere: steam
+
+-- ══ OTROS LAUNCHERS DE JUEGOS ══
+
+-- Lutris: principal en workspace 3 silencioso y tile
+hl.window_rule({
+    match = { class = "^(net\\.lutris\\.Lutris)$", title = "^(Lutris)$" },
+    workspace        = "3 silent",
+    no_initial_focus = true,
+    suppress_event   = "activate",
+    tile             = true,
+}) -- Requiere: lutris
+
+-- Heroic: principal en workspace 3 silencioso y tile
+hl.window_rule({
+    match = { class = "^(Heroic)$", title = "^(Heroic)( Games Launcher)?$" },
+    workspace        = "3 silent",
+    no_initial_focus = true,
+    suppress_event   = "activate",
+    tile             = true,
+}) -- Requiere: heroic-games-launcher-bin (AUR)
+
+-- Bottles: principal en workspace 3 silencioso y tile
+hl.window_rule({
+    match = { class = "^(bottles)$", title = "^(Bottles|Botellas)$" },
+    workspace        = "3 silent",
+    no_initial_focus = true,
+    suppress_event   = "activate",
+    tile             = true,
+}) -- Requiere: bottles (flatpak)
 
 -- OBS: workspace 5 silencioso
 hl.window_rule({ match = { class = "^(com\\.obsproject\\.Studio)$" }, workspace = "5 silent" }) -- Requiere: obs-studio
