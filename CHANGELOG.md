@@ -2,6 +2,14 @@
 
 Todas las versiones de la configuración se numeran con [Versionado Semántico](https://semver.org/lang/es/) desde la `0`. Cada release publicada en GitHub incluye el código fuente descargable (zip/tarball).
 
+## [v0.2.3] - 2026-08-12
+
+- Validada en **Hyprland v0.56.2**.
+- Apps del Hub (Vesktop, ZapZap, Steam, Lutris, Heroic, Bottles): se abren **a todo el ancho** en el workspace 3 con `scrolling_width = 1.0` (el "maximizar" del layout scrolling; aplica con `hyprctl reload`, sin handlers).
+- OBS: además de ir al workspace `5 silent`, abre **a todo el ancho y sin robar el foco** (`no_initial_focus` + `suppress_event = "activate"`).
+- Restaurada la regla global `suppress-maximize-events` a `enabled = true`.
+- Decorations: gaps (`in`/`out`) de 0 a 2 y esquinas redondeadas (`rounding` de 0 a 12).
+
 ## [v0.2.2] - 2026-08-10
 
 - Reglas de ventana para otros launchers de juegos: Lutris, Heroic y Bottles se abren tiled en el workspace `3 silent` (sin foco inicial ni notificaciones), igual que Steam.
