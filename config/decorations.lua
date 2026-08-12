@@ -8,8 +8,8 @@ hl.config({
     -- ══ GENERAL (gaps y bordes) ══
 
     general = {
-        gaps_in = 0,               -- Espacio entre ventanas
-        gaps_out = 0,              -- Espacio en los bordes del monitor
+        gaps_in = 2,               -- Espacio entre ventanas
+        gaps_out = 2,              -- Espacio en los bordes del monitor (junto a la barra Noctalia)
         border_size = 2,           -- Grosor del borde
         extend_border_grab_area = 10, -- Area extra para redimensionar desde el borde
         resize_on_border = true,   -- Redimensionar con el borde
@@ -45,7 +45,7 @@ hl.config({
 
     decoration = {
         dim_special = 0.0,          -- Sin atenuar el scratchpad
-        rounding = 0,               -- Sin esquinas redondeadas
+        rounding = 12,              -- Esquinas redondeadas
         active_opacity = 1.0,       -- Opacidad de la ventana activa
         inactive_opacity = 1.0,     -- Opacidad de la ventana inactiva
         fullscreen_opacity = 1,     -- Opacidad en pantalla completa
