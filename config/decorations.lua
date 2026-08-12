@@ -8,8 +8,8 @@ hl.config({
     -- ══ GENERAL (gaps y bordes) ══
 
     general = {
-        gaps_in = 2,               -- Espacio entre ventanas
-        gaps_out = 2,              -- Espacio en los bordes del monitor (junto a la barra Noctalia)
+        gaps_in = 1,               -- Espacio entre ventanas (separación entre programas)
+        gaps_out = 2,              -- Separación uniforme en las 4 aristas del monitor
         border_size = 2,           -- Grosor del borde
         extend_border_grab_area = 10, -- Area extra para redimensionar desde el borde
         resize_on_border = true,   -- Redimensionar con el borde
