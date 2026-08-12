@@ -17,6 +17,9 @@
 hl.window_rule({ match = { float = true }, center = true, persistent_size = true })
 -- XWayland sin clase ni titulo (popups desnudos): no centrar (la excepcion gana al centro global)
 hl.window_rule({ match = { float = true, xwayland = true, class = "^$", title = "^$" }, center = false })
+-- Alargar a todo el ancho las ventanas del Hub (workspace 3): scrolling_width=1.0 en cada
+-- regla es el "maximizar" propio del layout scrolling. El workspace "3 silent" +
+-- no_initial_focus siguen protegiendo el foco.
 -- Tooltips y menus de contexto XWayland (class == title): posicionarlos cerca del cursor
 hl.on("window.open", function(w)
     if w.xwayland and w.class ~= "" and w.class == w.title then
@@ -176,9 +179,9 @@ hl.window_rule({ match = { class = "^(.*[Ll]auncher.*)$" }, float = true, monito
 -- Discord en el monitor principal
 hl.window_rule({ match = { class = "^(discord)$" }, monitor = PRIMARY_MONITOR }) -- Requiere: discord
 -- Vesktop (Discord) en workspace 3 silencioso
-hl.window_rule({ match = { class = "^(vesktop)$" }, workspace = "3 silent", no_initial_focus = true, suppress_event = "activate" }) -- Requiere: vesktop-bin (AUR)
+hl.window_rule({ match = { class = "^(vesktop)$" }, workspace = "3 silent", no_initial_focus = true, suppress_event = "activate", scrolling_width = 1.0 }) -- Requiere: vesktop-bin (AUR)
 -- ZapZap (WhatsApp) en workspace 3 silencioso
-hl.window_rule({ match = { class = "^(com\\.rtosta\\.zapzap)$" }, workspace = "3 silent", no_initial_focus = true, suppress_event = "activate" }) -- Requiere: zapzap (AUR)
+hl.window_rule({ match = { class = "^(com\\.rtosta\\.zapzap)$" }, workspace = "3 silent", no_initial_focus = true, suppress_event = "activate", scrolling_width = 1.0 }) -- Requiere: zapzap (AUR)
 -- Calculadoras flotantes a tamano fijo
 hl.window_rule({ match = { class = "^(.*[Cc]alc.*)$" }, float = true, size = { "max(monitor_w, monitor_h)*0.17", "min(monitor_w, monitor_h)*0.43" } }) -- Requiere: gnome-calculator
 -- Selector de tipo de archivo de KDE flotante
@@ -245,8 +248,9 @@ for _, m in ipairs(modalMatches) do hl.window_rule({ match = m, float = true }) 
 
 -- Ignorar las peticiones de maximizar de todas las apps (suele gustar)
 hl.window_rule({
-    name  = "suppress-maximize-events",
-    match = { class = ".*" },
+    name     = "suppress-maximize-events",
+    enabled  = true,
+    match    = { class = ".*" },
     suppress_event = "maximize",
 })
 
@@ -276,6 +280,7 @@ hl.window_rule({
     no_initial_focus = true,
     suppress_event   = "activate",
     tile             = true,
+    scrolling_width  = 1.0,
 }) -- Requiere: steam
 -- Steam: cualquier otra ventana flotante y centrada
 hl.window_rule({
@@ -286,35 +291,42 @@ hl.window_rule({
 
 -- ══ OTROS LAUNCHERS DE JUEGOS ══
 
--- Lutris: principal en workspace 3 silencioso y tile
+-- Lutris: principal en workspace 3 silencioso, tile
 hl.window_rule({
     match = { class = "^(net\\.lutris\\.Lutris)$", title = "^(Lutris)$" },
     workspace        = "3 silent",
     no_initial_focus = true,
     suppress_event   = "activate",
     tile             = true,
+    scrolling_width  = 1.0,
 }) -- Requiere: lutris
 
--- Heroic: principal en workspace 3 silencioso y tile (clase real en minusculas)
+-- Heroic: principal en workspace 3 silencioso, tile y a todo el ancho (clase real en minusculas)
 hl.window_rule({
     match = { class = "^(heroic)$", title = "^(Heroic)( Games Launcher)?$" },
     workspace        = "3 silent",
     no_initial_focus = true,
     suppress_event   = "activate",
     tile             = true,
+    scrolling_width  = 1.0,
 }) -- Requiere: heroic-games-launcher-bin (AUR)
 
--- Bottles: principal en workspace 3 silencioso y tile (APP_ID real com.usebottles.bottles)
+-- Bottles: principal en workspace 3 silencioso, tile (APP_ID real com.usebottles.bottles)
 hl.window_rule({
     match = { class = "^(com\\.usebottles\\.bottles|bottles)$", title = "^(Bottles|Botellas)$" },
     workspace        = "3 silent",
     no_initial_focus = true,
     suppress_event   = "activate",
     tile             = true,
+    scrolling_width  = 1.0,
 }) -- Requiere: bottles (flatpak)
 
--- OBS: workspace 5 silencioso
-hl.window_rule({ match = { class = "^(com\\.obsproject\\.Studio)$" }, workspace = "5 silent" }) -- Requiere: obs-studio
+-- Maximizar las apps del Hub: scrolling_width=1.0 en cada regla (arriba) es el "maximizar"
+-- del layout scrolling y aplica en reload. No hace falta handler de window.open (no se
+-- re-registra con hyprctl reload).
+
+-- OBS: workspace 5 silencioso, a todo el ancho y sin robar foco
+hl.window_rule({ match = { class = "^(com\\.obsproject\\.Studio)$" }, workspace = "5 silent", no_initial_focus = true, suppress_event = "activate", scrolling_width = 1.0 }) -- Requiere: obs-studio
 -- PipeWeaver: workspace 5 silencioso
 hl.window_rule({ match = { class = "^(pipeweaver-app)$" }, workspace = "5 silent" }) -- Requiere: pipeweaver, pipeweaver-app (AUR)
 -- Firebot: workspace 5 silencioso
