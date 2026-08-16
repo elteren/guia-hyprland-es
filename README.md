@@ -104,6 +104,7 @@ Convención: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `SUPER + Escape` | Cerrar ventana (forzado) |
 | `SUPER + Q` | Cerrar ventana activa |
 | `SUPER + ALT + Space` | Alternar flotante |
+| `SUPER + B` | Centrar la ventana flotante enfocada |
 | `SUPER + D` | Maximizar (modo 1) |
 | `SUPER + F` | Pantalla completa |
 | `SUPER + T` | Alternar flotante + fullscreen de la ventana enfocada |

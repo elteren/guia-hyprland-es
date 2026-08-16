@@ -71,6 +71,8 @@ end
 -- Arrastrar / redimensionar con el mouse
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+-- Centrar la ventana flotante enfocada
+hl.bind(mainMod .. " + B",         hl.dsp.window.center())
 
 --- Alternar flotante + fullscreen de la ventana enfocada
 hl.bind(mainMod .. " + T", function()

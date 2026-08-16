@@ -2,6 +2,10 @@
 
 Todas las versiones de la configuración se numeran con [Versionado Semántico](https://semver.org/lang/es/) desde la `0`. Cada release publicada en GitHub incluye el código fuente descargable (zip/tarball).
 
+## [v0.2.4-1] - 2026-08-16
+
+- Fix: hotkey `SUPER + B` centra la ventana flotante enfocada (`hl.dsp.window.center()`).
+
 ## [v0.2.4] - 2026-08-15
 
 - Juegos: siguen renderizando en segundo plano cuando su workspace está oculto (`render_unfocused = true` en las reglas borderless y fullscreen real) con `render_unfocused_fps = 60` (limite de FPS en segundo plano, default 15).
