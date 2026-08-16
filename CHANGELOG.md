@@ -2,6 +2,12 @@
 
 Todas las versiones de la configuración se numeran con [Versionado Semántico](https://semver.org/lang/es/) desde la `0`. Cada release publicada en GitHub incluye el código fuente descargable (zip/tarball).
 
+## [v0.2.4] - 2026-08-15
+
+- Juegos: siguen renderizando en segundo plano cuando su workspace está oculto (`render_unfocused = true` en las reglas borderless y fullscreen real) con `render_unfocused_fps = 60` (limite de FPS en segundo plano, default 15).
+- Juegos: el estado de arranque (borderless) ahora es **flotante** (`float = true`, borderless windowed real), como recomienda la comunidad; al confirmarse el contenido `"game"` sigue aplicando fullscreen real.
+- Affinity v3: la ventana secundaria "Sub" (superficie de render que Wine/XWayland mapea en negro) se oculta en el workspace `special:hidden silent` sin foco inicial.
+
 ## [v0.2.3] - 2026-08-12
 
 - Validada en **Hyprland v0.56.2**.

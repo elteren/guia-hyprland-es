@@ -74,6 +74,8 @@ hl.window_rule({
     decorate         = false,
     size             = { "monitor_w", "monitor_h" },
     immediate        = true,
+    render_unfocused = true, -- seguir renderizando en segundo plano (workspace oculto)
+    float            = true, -- borderless windowed real (recomendado por la comunidad)
 })
 -- Steam app sin titulo inicial: centrada, flotante y sin fullscreen
 hl.window_rule({
@@ -91,9 +93,10 @@ hl.window_rule({
 -- immediate=true permite tearing en el juego (elegible), pero el toggle SUPER+SHIFT+T
 -- (general:allow_tearing, master toggle) sigue siendo el que lo activa de verdad.
 hl.window_rule({
-    match      = { class = gamingApps, content = "game" },
-    fullscreen = true,
-    immediate  = true,
+    match            = { class = gamingApps, content = "game" },
+    fullscreen       = true,
+    immediate        = true,
+    render_unfocused = true, -- seguir renderizando en segundo plano (workspace oculto)
 })
 
 -- ══ WINE / PROTON (utilidades, no-juego) ══
@@ -119,6 +122,15 @@ hl.window_rule({
     float       = false,
     border_size = 2, -- restaura el borde normal (la regla Wine lo pone a 0)
 })
+-- Affinity v3: la ventana secundaria "Sub" es una superficie de render que Wine/XWayland
+-- mapea en negro (override-redirect). Se oculta en un workspace especial silencioso.
+hl.window_rule({
+    match            = { class = "^(affinity\\.exe)$", title = "^(Sub)$" },
+    workspace        = "special:hidden silent",
+    no_initial_focus = true,
+    suppress_event   = "activate",
+})
+
 -- Menus de contexto de Wine: no roban el foco
 hl.window_rule({
     name  = "fix-wine-menu-nofocus",

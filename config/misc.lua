@@ -22,6 +22,8 @@ hl.config({
         -- VRR (variable refresh rate). 3 = activo: fullscreen y normal. Nota: si el monitor no
         -- reporta adaptive sync por esa conexion, el log mostrara "No Adaptive sync support" (aviso, no error).
         vrr = 3,
+        -- Max FPS de render en segundo plano para ventanas con render_unfocused (default 15)
+        render_unfocused_fps = 60,
     },
     xwayland = {
         force_zero_scaling = true,         -- Sin escalado para apps XWayland

@@ -80,9 +80,10 @@ mkdir -p ~/.local/bin && cp scripts/*.sh ~/.local/bin/ && chmod +x ~/.local/bin/
 ## Nota: Gaming, Wine/Proton y el anti-freeze
 
 - **Juegos** (Steam `steam_app.*`, `gamescope` y el runtime `steam_proton`) se abren **siempre** en el workspace `gaming` (auto-envío fijo, sin toggle).
-- Al arrancar, la ventana del juego va **borderless a tamaño de monitor** (`size = "monitor_w monitor_h"`) **sin** fullscreen forzado, para evitar el **freeze de Proton** en XWayland. Recién cuando el contenido se confirma como `"game"`, la regla final aplica **fullscreen real** + `immediate` (permite tearing en el juego; el toggle `SUPER + SHIFT + T` sigue siendo el que lo activa).
+- Al arrancar, la ventana del juego va **borderless flotante a tamaño de monitor** (`float` + `size = "monitor_w monitor_h"`) **sin** fullscreen forzado, para evitar el **freeze de Proton** en XWayland. Recién cuando el contenido se confirma como `"game"`, la regla final aplica **fullscreen real** + `immediate` (permite tearing en el juego; el toggle `SUPER + SHIFT + T` sigue siendo el que lo activa).
+- Los juegos **siguen renderizando en segundo plano** aunque su workspace esté oculto (`render_unfocused = true` en borderless y fullscreen + `render_unfocused_fps = 60`).
 - **Utilidades de Wine** (launchers, configuradores, prefijos: `wine`, `wine64`, `explorer.exe`, `*.exe`) **ya no van a gaming**: flotan como ventanas limpias (sin bordes, sin blur), sus menús de contexto no roban foco y aparecen **junto al cursor**. Sección `══ WINE / PROTON ══` de `config/windowrules.lua`.
-- **Excepción Affinity**: el AppImage de Affinity (`affinity.exe`, empaqueta Wine) se abre **tileado** como app normal (borde estándar); solo su ventana principal. Su **bienvenida** (título vacío) queda **centrada y enfocable**; solo sus menús de contexto (pequeños, título vacío) flotan junto al cursor.
+- **Excepción Affinity**: el AppImage de Affinity (`affinity.exe`, empaqueta Wine) se abre **tileado** como app normal (borde estándar); solo su ventana principal. Su **bienvenida** (título vacío) queda **centrada y enfocable**; solo sus menús de contexto (pequeños, título vacío) flotan junto al cursor. En Affinity v3 la ventana secundaria **"Sub"** (superficie de render que se mapea en negro) se oculta en el workspace `special:hidden silent`.
 - Excepción: si algún juego lanzado por Steam expone su clase como `<juego>.exe`, flotará como utilidad; agrégala a `gamingApps` para tratarlo como juego.
 
 ## Requisitos
