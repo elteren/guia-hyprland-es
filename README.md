@@ -85,6 +85,7 @@ mkdir -p ~/.local/bin && cp scripts/*.sh ~/.local/bin/ && chmod +x ~/.local/bin/
 - **Utilidades de Wine** (launchers, configuradores, prefijos: `wine`, `wine64`, `explorer.exe`, `*.exe`) **ya no van a gaming**: flotan como ventanas limpias (sin bordes, sin blur), sus menús de contexto no roban foco y aparecen **junto al cursor**. Sección `══ WINE / PROTON ══` de `config/windowrules.lua`.
 - **Excepción Affinity**: el AppImage de Affinity (`affinity.exe`, empaqueta Wine) se abre **tileado** como app normal (borde estándar); solo su ventana principal. Su **bienvenida** (título vacío) queda **centrada y enfocable**; solo sus menús de contexto (pequeños, título vacío) flotan junto al cursor. En Affinity v3 la ventana secundaria **"Sub"** (superficie de render que se mapea en negro) se oculta en el workspace `special:hidden silent`.
 - Excepción: si algún juego lanzado por Steam expone su clase como `<juego>.exe`, flotará como utilidad; agrégala a `gamingApps` para tratarlo como juego.
+- **Emuladores** (Eden): se abren siempre en el workspace `gaming` y siguen renderizando en segundo plano aunque el workspace esté oculto (`render_unfocused = true` en la regla de emuladores de `config/windowrules.lua`).
 
 ## Requisitos
 

@@ -58,6 +58,9 @@ hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
 hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspace, content = "game" })
 -- Cualquier app de la lista gamingApps va al workspace gaming
 hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
+-- Emuladores: siempre al workspace gaming y render en segundo plano al ocultarse
+local emulatorClasses = "^(eden)$"
+hl.window_rule({ match = { class = emulatorClasses }, workspace = gamingWorkspace, render_unfocused = true })
 -- Steam: lista de amigos flotante
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Friends List)$" }, float = true }) -- Requiere: steam
 -- Steam: ventana de "Lanzando..." flotante y centrada

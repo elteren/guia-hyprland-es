@@ -2,6 +2,10 @@
 
 Todas las versiones de la configuración se numeran con [Versionado Semántico](https://semver.org/lang/es/) desde la `0`. Cada release publicada en GitHub incluye el código fuente descargable (zip/tarball).
 
+## [v0.2.5] - 2026-08-19
+
+- Emuladores: Eden se abre siempre en el workspace `gaming` y sigue renderizando en segundo plano cuando el workspace está oculto (`render_unfocused = true` en la regla de emuladores de `config/windowrules.lua`).
+
 ## [v0.2.4-1] - 2026-08-16
 
 - Fix: hotkey `SUPER + B` centra la ventana flotante enfocada (`hl.dsp.window.center()`).
