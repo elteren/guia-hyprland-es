@@ -2,6 +2,15 @@
 
 Todas las versiones de la configuración se numeran con [Versionado Semántico](https://semver.org/lang/es/) desde la `0`. Cada release publicada en GitHub incluye el código fuente descargable (zip/tarball).
 
+## [v0.2.6] - 2026-08-20
+
+- Gaming: migración a **tags dinámicos** (`tag = "+game"` por clase `steam_app.*`/`gamescope`/`steam_proton` o por etiqueta xdg) en lugar de matchear `content` en reglas estáticas (no fiable, vaxry oct/2025). Matchear `tag = "game"` casa con `game*`.
+- Gaming: fullscreen real **inmediato** por tag (la última regla gana), con las mismas condiciones anti-freeze de la borderless.
+- Gaming: `min_size`/`max_size` = monitor **bloquean el redimensionado** de la ventana flotante por el borde (`resize_on_border = true`); aplica también a la regla de `steam_app` sin título.
+- Emuladores (Eden): **sin** tag `game` a propósito, para que la regla de fullscreen no les fuerce pantalla completa (tienen UI/menús propia).
+- Fix: hotkey `SUPER + D` usa `mode = "maximized"` (sintaxis oficial Lua; `mode = 1` era la heredada de hyprlang).
+- Cabecera de `hyprland.lua`: versión v0.56.2.
+
 ## [v0.2.5] - 2026-08-19
 
 - Emuladores: Eden se abre siempre en el workspace `gaming` y sigue renderizando en segundo plano cuando el workspace está oculto (`render_unfocused = true` en la regla de emuladores de `config/windowrules.lua`).

@@ -1,4 +1,4 @@
--- Hyprland v0.56.1 (CachyOS) - configuracion Lua
+-- Hyprland v0.56.2 (CachyOS) - configuracion Lua
 -- Los modulos se cargan en orden de dependencias (variables y colores primero).
 
 require("config.variables")     -- Apps por defecto, monitores, workspaces

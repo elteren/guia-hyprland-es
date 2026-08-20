@@ -19,7 +19,7 @@ hl.bind(mainMod .. " + Q",           hl.dsp.window.close())
 -- Alternar flotante
 hl.bind(mainMod .. " + ALT + Space", hl.dsp.window.float({ action = "toggle" }))
 -- Maximizar (modo 1)
-hl.bind(mainMod .. " + D",           hl.dsp.window.fullscreen({ mode = 1 }))
+hl.bind(mainMod .. " + D",           hl.dsp.window.fullscreen({ mode = "maximized" }))
 -- Pantalla completa
 hl.bind(mainMod .. " + F",           hl.dsp.window.fullscreen())
 -- Mover ventana en columna

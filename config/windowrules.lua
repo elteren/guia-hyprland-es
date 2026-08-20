@@ -51,36 +51,50 @@ local gamingApps = "^(steam_app.*|gamescope|steam_proton)$" -- Requiere: steam, 
 -- Workspace dedicado a juegos
 local gamingWorkspace = "name:gaming"
 
--- Auto-envio SIEMPRE activo de juegos al workspace gaming (estilo del amigo, sin toggle)
--- Contenido "game" va al workspace gaming
-hl.window_rule({ match = { content = "game" }, workspace = gamingWorkspace })
--- Etiqueta xdg "game" va al workspace gaming (sin fullscreen forzado al arrancar)
-hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, workspace = gamingWorkspace, content = "game" })
--- Cualquier app de la lista gamingApps va al workspace gaming
-hl.window_rule({ match = { class = gamingApps }, workspace = gamingWorkspace })
--- Emuladores: siempre al workspace gaming y render en segundo plano al ocultarse
+-- Etiquetado por CLASE: fiable al crear la ventana (matchear content puede no
+-- reflejarse en reglas estaticas, vaxry oct/2025). tag="+game" crea "game*";
+-- matchear tag="game" casa con ambos (wiki Window Rules).
+hl.window_rule({ match = { class = gamingApps }, tag = "+game" })
+-- Apps con etiqueta xdg "game" de la propia app: mismo etiquetado
+hl.window_rule({ match = { xdg_tag = "^(.*game.*)$" }, tag = "+game", content = "game" })
+
+-- Auto-envio SIEMPRE activo de juegos al workspace gaming (por tag, sin toggle)
+hl.window_rule({ match = { tag = "game" }, workspace = gamingWorkspace })
+
+-- Emuladores: ws gaming + render en 2o plano. SIN tag "game" a proposito, para
+-- que la regla de fullscreen de abajo NO les fuerce pantalla completa (tienen
+-- menus/UI propia).
 local emulatorClasses = "^(eden)$"
 hl.window_rule({ match = { class = emulatorClasses }, workspace = gamingWorkspace, render_unfocused = true })
+
 -- Steam: lista de amigos flotante
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Friends List)$" }, float = true }) -- Requiere: steam
 -- Steam: ventana de "Lanzando..." flotante y centrada
 hl.window_rule({ match = { class = "^(steam)$", title = "^(Launching\\.{3})$" }, float = true, center = true, workspace = gamingWorkspace }) -- Requiere: steam
--- Juegos (menos los que se abren desde /home): borderless a tamano de monitor
--- sin fullscreen forzado, para evitar el freeze de Proton en XWayland
+
+-- Juegos (menos los que se abren desde /home): borderless a tamano de monitor.
+-- Estado transitorio (anti-freeze de Proton en XWayland) hasta que la regla de
+-- fullscreen de abajo lo pase a pantalla completa.
+-- min/max_size = monitor BLOQUEAN el tamano: no se puede redimensionar por el
+-- borde (resize_on_border=true) mientras esta flotante.
 hl.window_rule({
     match = {
-        class         = gamingApps,
-        title         = "^(.+)$",
-        initial_title = "negative:^(.*/home/.*)$",
+        tag           = "game",
+        title         = "^(.+)$", -- descarta launchers/titulos vacios
+        initial_title = "negative:^(.*/home/.*)$", -- juegos propios de /home excluidos
     },
-    content          = "game",
-    decorate         = false,
+    content          = "game", -- informar a Hyprland que es contenido de juego
+    decorate         = false, -- borderless real
     size             = { "monitor_w", "monitor_h" },
-    immediate        = true,
+    min_size         = { "monitor_w", "monitor_h" }, -- fija tamano: bloquea resize
+    max_size         = { "monitor_w", "monitor_h" }, -- idem
+    immediate        = true, -- elegible para tearing (menos latencia)
     render_unfocused = true, -- seguir renderizando en segundo plano (workspace oculto)
     float            = true, -- borderless windowed real (recomendado por la comunidad)
 })
--- Steam app sin titulo inicial: centrada, flotante y sin fullscreen
+
+-- Steam app sin titulo inicial: centrada, flotante y sin fullscreen (caso raro
+-- de juegos que abren sin reportar titulo). Tamano bloqueado a monitor.
 hl.window_rule({
     match = {
         class         = "^(steam_app.*)$",
@@ -90,13 +104,22 @@ hl.window_rule({
     float            = true,
     fullscreen       = false,
     fullscreen_state = "0",
+    size             = { "monitor_w", "monitor_h" },
+    min_size         = { "monitor_w", "monitor_h" }, -- fija tamano: bloquea resize
+    max_size         = { "monitor_w", "monitor_h" }, -- idem
     workspace        = gamingWorkspace,
 }) -- Requiere: steam
--- Fullscreen real SOLO cuando content="game" ya esta confirmado (la ultima regla gana).
--- immediate=true permite tearing en el juego (elegible), pero el toggle SUPER+SHIFT+T
--- (general:allow_tearing, master toggle) sigue siendo el que lo activa de verdad.
+
+-- Fullscreen real INMEDIATO por tag (fiable). Va DESPUES de la borderless
+-- ("la ultima gana"): pasa la ventana a pantalla completa. Mismas condiciones
+-- que la borderless para preservar el anti-freeze. En fullscreen tampoco se
+-- puede redimensionar por el borde (refuerza el min/max_size).
 hl.window_rule({
-    match            = { class = gamingApps, content = "game" },
+    match = {
+        tag           = "game",
+        title         = "^(.+)$",
+        initial_title = "negative:^(.*/home/.*)$",
+    },
     fullscreen       = true,
     immediate        = true,
     render_unfocused = true, -- seguir renderizando en segundo plano (workspace oculto)
