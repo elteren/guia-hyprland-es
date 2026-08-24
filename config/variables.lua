@@ -1,14 +1,14 @@
 -- Apps por defecto de Hyprland
 --
 -- ══ REQUIERE (instalar antes de usar este archivo) ══
--- pacman (oficial): kitty dolphin firefox gnome-text-editor gnome-calculator
+-- pacman (oficial): kitty dolphin chromium firefox gnome-text-editor gnome-calculator
 
 -- Terminal
 TERMINAL     = "kitty" -- Requiere: kitty
 -- Gestor de archivos
 FILE_MANAGER = "dolphin" -- Requiere: dolphin
--- Navegador web
-BROWSER      = "firefox" -- Requiere: firefox
+-- Navegador web (predeterminado: chromium, secundario: firefox)
+BROWSER      = "chromium" -- Requiere: chromium (ungoogled-chromium-bin)
 -- Editor de texto
 EDITOR       = "gnome-text-editor --new-window" -- Requiere: gnome-text-editor
 -- Calculadora

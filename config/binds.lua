@@ -90,8 +90,9 @@ hl.bind(mainMod .. " + E",          hl.dsp.exec_cmd(launchPrefix .. FILE_MANAGER
 -- Calculadora
 hl.bind(mainMod .. " + C",          hl.dsp.exec_cmd(launchPrefix .. CALCULATOR)) -- Requiere: uwsm, gnome-calculator
 hl.bind("XF86Calculator",           hl.dsp.exec_cmd(launchPrefix .. CALCULATOR)) -- Requiere: uwsm, gnome-calculator
--- Navegador (firefox)
-hl.bind(mainMod .. " + W",          hl.dsp.exec_cmd(launchPrefix .. BROWSER)) -- Requiere: uwsm, firefox
+-- Navegador (chromium predeterminado, firefox secundario)
+hl.bind(mainMod .. " + W",          hl.dsp.exec_cmd(launchPrefix .. BROWSER)) -- Requiere: uwsm, chromium (BROWSER)
+hl.bind(mainMod .. " + SHIFT + W",  hl.dsp.exec_cmd(launchPrefix .. "firefox")) -- Requiere: uwsm, firefox (secundario)
 -- Monitor del sistema (btop)
 hl.bind("CONTROL + SHIFT + Escape", hl.dsp.exec_cmd(launchPrefix .. TERMINAL .. " -e btop")) -- Requiere: uwsm, kitty, btop
 -- Ajustes de Noctalia
@@ -138,8 +139,8 @@ hl.bind("Print",               hl.dsp.exec_cmd(noctCall .. "screenshot-region"))
 hl.bind(mainMod .. " + Print", hl.dsp.exec_cmd("sh -c 'f=\"$HOME/Imágenes/capturas/shot-$(date +%Y%m%d-%H%M%S).png\"; mkdir -p \"${f%/*}\"; grim -o HDMI-A-1 \"$f\" && wl-copy --type image/png < \"$f\"'")) -- Requiere: grim, wl-clipboard
 -- Alternar tearing (baja latencia para juegos competitivos)
 hl.bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("bash ~/.local/bin/tearing-toggle.sh")) -- Requiere: script ~/.local/bin/tearing-toggle.sh
--- Panel de fondos de pantalla
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(noctCall .. "panel-toggle wallpaper")) -- Requiere: noctalia
+-- Panel de fondos de pantalla (movido de SHIFT+W para dejar sitio a firefox secundario)
+hl.bind(mainMod .. " + ALT + W", hl.dsp.exec_cmd(noctCall .. "panel-toggle wallpaper")) -- Requiere: noctalia (antes SUPER+SHIFT+W)
 -- Portapapeles
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(noctCall .. "panel-toggle clipboard")) -- Requiere: noctalia, cliphist (historial)
 -- Notificaciones

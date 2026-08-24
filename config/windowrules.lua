@@ -198,6 +198,7 @@ end)
 -- Ventanas de trabajo a todo el ancho (layout scrolling): reemplaza al maximizar
 local fullWidthClasses = {
     { class = "^(firefox)$" },                                                -- Requiere: firefox
+    { class = "^(chromium)$" },                                               -- Requiere: chromium (ungoogled-chromium-bin)
     { class = "^(app\\.zen_browser\\.zen)$" },                                -- Requiere: zen-browser (AUR)
     { class = "^(vesktop)$", title = "negative:^vesktop$" },                  -- Requiere: vesktop-bin (AUR)
 }
@@ -255,6 +256,7 @@ local terminals = "^(kitty|ghostty|[Kk]onsole|Alacritty|gnome-terminal|xfce[0-9]
 
 -- Navegadores: opacidad completa
 hl.window_rule({ match = { class = "^(firefox|zen)$" }, opacity = "1.0 override" }) -- Requiere: firefox o zen-browser (AUR)
+hl.window_rule({ match = { class = "^(chromium)$" }, opacity = "1.0 override" }) -- Requiere: chromium (ungoogled-chromium-bin)
 -- Terminales: opacidad completa (quitar si la terminal no soporta transparencia)
 hl.window_rule({ match = { class = terminals }, opacity = "1.0 override" })
 -- Reproductores y visores: opacidad completa
@@ -308,8 +310,10 @@ hl.window_rule({
 
 -- ══ STREAMING ══
 
--- Firefox: navegador principal en workspace 2
+-- Firefox: navegador principal en workspace 2 (se mantiene)
 hl.window_rule({ match = { class = "^(firefox)$" }, workspace = "2" }) -- Requiere: firefox
+-- Chromium: mismo comportamiento que Firefox en workspace 2 (predeterminado)
+hl.window_rule({ match = { class = "^(chromium)$" }, workspace = "2" }) -- Requiere: chromium (ungoogled-chromium-bin)
 
 -- Steam: ventana principal en workspace 3, en mosaico y silenciosa
 hl.window_rule({
@@ -363,6 +367,8 @@ hl.window_rule({
 -- del layout scrolling y aplica en reload. No hace falta handler de window.open (no se
 -- re-registra con hyprctl reload).
 
+-- NV Broadcast: workspace 5 (Live) siempre maximizado fullscreen (verificado class com.doczeus.NVBroadcast)
+hl.window_rule({ match = { class = "^(com.doczeus.NVBroadcast)$" }, workspace = "5 silent", fullscreen = true, no_initial_focus = true, suppress_event = "activate" }) -- Requiere: nvbroadcast (com.doczeus.NVBroadcast)
 -- OBS: workspace 5 silencioso, a todo el ancho y sin robar foco
 hl.window_rule({ match = { class = "^(com\\.obsproject\\.Studio)$" }, workspace = "5 silent", no_initial_focus = true, suppress_event = "activate", scrolling_width = 1.0 }) -- Requiere: obs-studio
 -- PipeWeaver: workspace 5 silencioso

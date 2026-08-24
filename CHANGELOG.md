@@ -2,6 +2,14 @@
 
 Todas las versiones de la configuración se numeran con [Versionado Semántico](https://semver.org/lang/es/) desde la `0`. Cada release publicada en GitHub incluye el código fuente descargable (zip/tarball).
 
+## [v0.2.7] - 2026-08-24
+
+- Navegador predeterminado: **chromium** (ungoogled-chromium-bin) en `SUPER+W` (`BROWSER` en `config/variables.lua`); **firefox** pasa a secundario en `SUPER+SHIFT+W` y mantiene sus mismas reglas (workspace 2, `scrolling_width=1.0`, `opacity`).
+- Chromium replica comportamiento de firefox: workspace 2, `scrolling_width=1.0` (fullWidth), `opacity="1.0 override"` — verificado contra wiki oficial `Window-Rules` (Latest git).
+- Binds: `SUPER+SHIFT+W` reasignado a firefox secundario; panel de fondos `Noctalia` movido de `SUPER+SHIFT+W` a `SUPER+ALT+W` (`config/binds.lua`).
+- `config/windowrules.lua` — NV Broadcast (`com.doczeus.NVBroadcast`) siempre en workspace 5 `Live` **maximizado fullscreen** (`workspace="5 silent" + fullscreen=true`) sin robar foco.
+- `config/variables.lua` y `README.md` actualizados: `BROWSER=chromium`, requisitos `chromium firefox`, tablas de atajos y variables.
+
 ## [v0.2.6] - 2026-08-20
 
 - Gaming: migración a **tags dinámicos** (`tag = "+game"` por clase `steam_app.*`/`gamescope`/`steam_proton` o por etiqueta xdg) en lugar de matchear `content` en reglas estáticas (no fiable, vaxry oct/2025). Matchear `tag = "game"` casa con `game*`.

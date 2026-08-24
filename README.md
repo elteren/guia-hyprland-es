@@ -91,7 +91,7 @@ mkdir -p ~/.local/bin && cp scripts/*.sh ~/.local/bin/ && chmod +x ~/.local/bin/
 
 ## Requisitos
 
-- **Official**: kitty dolphin firefox gnome-text-editor gnome-calculator
+- **Official**: kitty dolphin chromium firefox gnome-text-editor gnome-calculator
 - **AUR**: (ninguno)
 - **Custom**: script en `scripts/` del repo → copiar a `~/.local/bin/` (`tearing-toggle.sh`, ver [Scripts auxiliares](#scripts-auxiliares))
 - **Extras**: noctalia, uwsm, hyprpicker, grim, wl-clipboard, wl-clip-persist, cliphist
@@ -131,7 +131,7 @@ Convención: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `SUPER + Return` | Terminal (kitty) |
 | `SUPER + E` | Gestor de archivos (dolphin) |
 | `SUPER + C` / `XF86Calculator` | Calculadora (gnome-calculator) |
-| `SUPER + W` | Navegador (firefox) |
+| `SUPER + W` | Navegador (chromium — `BROWSER`, secundario firefox en `SUPER + SHIFT + W`) |
 | `CONTROL + SHIFT + Escape` | Monitor del sistema (btop) |
 | `SUPER + Z` | Ajustes de Noctalia |
 | `SUPER + X` | Centro de control |
@@ -159,7 +159,8 @@ Convención: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 | `Print` | Captura de región (Noctalia) |
 | `SUPER + Print` | Captura de pantalla completa (guardar + copiar) |
 | `SUPER + SHIFT + T` | Alternar tearing (script) |
-| `SUPER + SHIFT + W` | Panel de fondos de pantalla |
+| `SUPER + SHIFT + W` | Navegador secundario (firefox) |
+| `SUPER + ALT + W` | Panel de fondos de pantalla |
 | `SUPER + V` | Portapapeles |
 | `SUPER + A` | Notificaciones |
 
@@ -183,7 +184,7 @@ Convención: `SUPER` = tecla super (Windows), `CONTROL` = Ctrl, `ALT` = Alt.
 |---|---|---|
 | `TERMINAL` | `kitty` | Terminal por defecto |
 | `FILE_MANAGER` | `dolphin` | Gestor de archivos |
-| `BROWSER` | `firefox` | Navegador web |
+| `BROWSER` | `chromium` | Navegador web (predeterminado chromium, secundario firefox en `SUPER+SHIFT+W`) |
 | `EDITOR` | `gnome-text-editor --new-window` | Editor de texto (sin atajo asignado) |
 | `CALCULATOR` | `gnome-calculator` | Calculadora |
 | `MONITOR1` | `HDMI-A-1` | Monitor principal |
